@@ -7,33 +7,34 @@ function Register(props) {
             <LogoContainer>
                 <LogoImg src="https://pngimg.com/uploads/amazon/amazon_PNG6.png" />
             </LogoContainer>
-            <MainContent>
-                <PageHeading>Create account</PageHeading>
-                <MainForm>
-                    <FormLabel htmlFor="name">Your name</FormLabel>
-                    <FormInput type="text" name="name" id="name" />
-                    <FormLabel htmlFor="email">Email</FormLabel>
-                    <FormInput type="text" name="email" id="email" />
-                    <FormLabel htmlFor="password">Password</FormLabel>
-                    <FormInput
-                        type="password"
-                        name="password"
-                        id="password"
-                        placeholder="At least 6 characters"
-                    />
-                    <SubmitButton>Create your Amazon account</SubmitButton>
-                </MainForm>
-                <SignInSection>
-                    <span>Already have an account?</span>
-                    <SignInButton>
-                        <span>Sign-In</span>
-                        <i className="material-icons" style={{ fontSize: "18px" }}>
-                            arrow_right
-                        </i>
-                    </SignInButton>
-                </SignInSection>
-            </MainContent>
-
+            <MainContentContainer>
+                <MainContent>
+                    <PageHeading>Create account</PageHeading>
+                    <MainForm>
+                        <FormLabel htmlFor="name">Your name</FormLabel>
+                        <FormInput type="text" name="name" id="name" />
+                        <FormLabel htmlFor="email">Email</FormLabel>
+                        <FormInput type="text" name="email" id="email" />
+                        <FormLabel htmlFor="password">Password</FormLabel>
+                        <FormInput
+                            type="password"
+                            name="password"
+                            id="password"
+                            placeholder="At least 6 characters"
+                        />
+                        <SubmitButton>Create your Amazon account</SubmitButton>
+                    </MainForm>
+                    <SignInSection>
+                        <span>Already have an account?</span>
+                        <SignInButton>
+                            <span>Sign-In</span>
+                            <i className="material-icons" style={{ fontSize: "18px" }}>
+                                arrow_right
+                            </i>
+                        </SignInButton>
+                    </SignInSection>
+                </MainContent>
+            </MainContentContainer>
             <Footer>© 2021, Amazon clone, by Ala ben yahia</Footer>
         </Container>
     );
@@ -42,6 +43,7 @@ function Register(props) {
 export default Register;
 
 const Container = styled.div`
+    height: 100vh;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -57,11 +59,16 @@ const LogoImg = styled.img`
     object-fit: contain;
 `;
 
+const MainContentContainer = styled.div`
+    flex: 1;
+`;
+
 const MainContent = styled.div`
     width: 350px;
     border-radius: 4px;
     border: 1px solid #ddd;
     padding: 14px 18px;
+    margin-bottom: 20px;
 `;
 
 const PageHeading = styled.h3`
