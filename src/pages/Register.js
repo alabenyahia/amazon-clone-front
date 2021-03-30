@@ -1,7 +1,10 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 
 function Register(props) {
+    const [name, setName] = useState("");
+    const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
     return (
         <Container>
             <LogoContainer>
@@ -12,15 +15,29 @@ function Register(props) {
                     <PageHeading>Create account</PageHeading>
                     <MainForm>
                         <FormLabel htmlFor="name">Your name</FormLabel>
-                        <FormInput type="text" name="name" id="name" />
+                        <FormInput
+                            type="text"
+                            name="name"
+                            id="name"
+                            value={name}
+                            onChange={(e) => setName(e.target.value)}
+                        />
                         <FormLabel htmlFor="email">Email</FormLabel>
-                        <FormInput type="text" name="email" id="email" />
+                        <FormInput
+                            type="text"
+                            name="email"
+                            id="email"
+                            value={email}
+                            onChange={(e) => setEmail(e.target.value)}
+                        />
                         <FormLabel htmlFor="password">Password</FormLabel>
                         <FormInput
                             type="password"
                             name="password"
                             id="password"
                             placeholder="At least 6 characters"
+                            value={password}
+                            onChange={(e) => setPassword(e.target.value)}
                         />
                         <SubmitButton>Create your Amazon account</SubmitButton>
                     </MainForm>

@@ -1,7 +1,11 @@
 import React from "react";
 import styled from "styled-components";
+import { useState } from "react/cjs/react.production.min";
 
 function Login(props) {
+    const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
+
     return (
         <Container>
             <LogoContainer>
@@ -12,9 +16,21 @@ function Login(props) {
                     <PageHeading>Sign-In</PageHeading>
                     <MainForm>
                         <FormLabel htmlFor="email">Email</FormLabel>
-                        <FormInput type="text" name="email" id="email" />
+                        <FormInput
+                            type="text"
+                            name="email"
+                            id="email"
+                            value={email}
+                            onChange={(e) => setEmail(e.target.value)}
+                        />
                         <FormLabel htmlFor="password">Password</FormLabel>
-                        <FormInput type="password" name="password" id="password" />
+                        <FormInput
+                            type="password"
+                            name="password"
+                            id="password"
+                            value={password}
+                            onChange={(e) => setPassword(e.target.value)}
+                        />
                         <SubmitButton>Sign-In</SubmitButton>
                     </MainForm>
                 </MainContent>
