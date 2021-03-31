@@ -1,10 +1,18 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import styled from "styled-components";
+import { GlobalContext } from "../context/GlobalState";
 
 function Register(props) {
     const [name, setName] = useState("");
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
+
+    const { registerUser } = useContext(GlobalContext);
+
+    const handleRegistration = (e) => {
+        e.preventDefault();
+        registerUser({ name, email, password });
+    };
     return (
         <Container>
             <LogoContainer>
@@ -13,7 +21,7 @@ function Register(props) {
             <MainContentContainer>
                 <MainContent>
                     <PageHeading>Create account</PageHeading>
-                    <MainForm>
+                    <MainForm onSubmit={handleRegistration}>
                         <FormLabel htmlFor="name">Your name</FormLabel>
                         <FormInput
                             type="text"
