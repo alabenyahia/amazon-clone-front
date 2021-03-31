@@ -7,7 +7,7 @@ function Register(props) {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
 
-    const { registerUser, resetError } = useContext(GlobalContext);
+    const { registerUser, resetError, registerValidationError } = useContext(GlobalContext);
 
     const handleRegistration = (e) => {
         e.preventDefault();
@@ -31,6 +31,15 @@ function Register(props) {
                             value={name}
                             onChange={(e) => setName(e.target.value)}
                         />
+                        {registerValidationError.name && (
+                            <InputErrorContainer>
+                                <i className="material-icons" style={{ fontSize: "13px" }}>
+                                    priority_high
+                                </i>
+                                <span>{registerValidationError.name}</span>
+                            </InputErrorContainer>
+                        )}
+
                         <FormLabel htmlFor="email">Email</FormLabel>
                         <FormInput
                             type="text"
@@ -39,6 +48,14 @@ function Register(props) {
                             value={email}
                             onChange={(e) => setEmail(e.target.value)}
                         />
+                        {registerValidationError.email && (
+                            <InputErrorContainer>
+                                <i className="material-icons" style={{ fontSize: "13px" }}>
+                                    priority_high
+                                </i>
+                                <span>{registerValidationError.email}</span>
+                            </InputErrorContainer>
+                        )}
                         <FormLabel htmlFor="password">Password</FormLabel>
                         <FormInput
                             type="password"
@@ -48,6 +65,14 @@ function Register(props) {
                             value={password}
                             onChange={(e) => setPassword(e.target.value)}
                         />
+                        {registerValidationError.password && (
+                            <InputErrorContainer>
+                                <i className="material-icons" style={{ fontSize: "13px" }}>
+                                    priority_high
+                                </i>
+                                <span>{registerValidationError.password}</span>
+                            </InputErrorContainer>
+                        )}
                         <SubmitButton>Create your Amazon account</SubmitButton>
                     </MainForm>
                     <SignInSection>
@@ -119,13 +144,23 @@ const FormInput = styled.input`
     border: 1px solid #a6a6a6;
     border-radius: 3px;
     outline: none;
-    margin: 4px 0 14px 0;
+    margin: 4px 0 8px 0;
     padding: 4px 8px;
     transition: all 100ms linear;
     &:focus {
         border-color: #e77600;
         box-shadow: 0 0 3px 2px rgb(228 121 17 / 50%);
     }
+`;
+
+const InputErrorContainer = styled.div`
+    color: #c40000;
+    font-size: 12px;
+    font-weight: 400;
+    line-height: 15px;
+    margin-bottom: 14px;
+    display: flex;
+    align-items: center;
 `;
 
 const SubmitButton = styled.button`
@@ -138,7 +173,7 @@ const SubmitButton = styled.button`
     cursor: pointer;
     padding: 7px 0;
     border-radius: 3px;
-
+    margin-top: 8px;
     &:hover {
         background: linear-gradient(to bottom, #f5d78e, #eeb933);
     }
