@@ -6,6 +6,7 @@ const initialState = {
     isAuthenticated: null,
     loading: true,
     registerValidationError: {},
+    loginValidationError: {},
 };
 
 export const GlobalContext = createContext(initialState);
@@ -38,12 +39,35 @@ export const GlobalProvider = ({ children }) => {
         }
     }
 
+    async function loginUser(data) {
+        try {
+            const rawRes = await fetch(`${BASE_URL}/api/user/login`, {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(data),
+            });
+            const res = await rawRes.json();
+            if (rawRes.status === 200) dispatch({ type: "LOGIN_SUCCESS", payload: res });
+            else if (rawRes.status === 500) {
+                dispatch({
+                    type: "LOGIN_FAIL",
+                    payload: { serverError: "Something went wrong" },
+                });
+            } else dispatch({ type: "REGISTER_FAIL", payload: res });
+        } catch (err) {
+            dispatch({
+                type: "LOGIN_FAIL",
+                payload: { serverError: "Something went wrong" },
+            });
+        }
+    }
+
     function resetError() {
         dispatch({ type: "RESET_ERROR" });
     }
 
     return (
-        <GlobalContext.Provider value={{ ...state, registerUser, resetError }}>
+        <GlobalContext.Provider value={{ ...state, registerUser, resetError, loginUser }}>
             {children}
         </GlobalContext.Provider>
     );

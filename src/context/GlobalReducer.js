@@ -18,6 +18,7 @@ export const GlobalReducer = (state, action) => {
             return {
                 ...state,
                 registerValidationError: {},
+                loginValidationError: {},
             };
         default:
             return state;

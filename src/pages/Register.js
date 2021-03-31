@@ -174,6 +174,7 @@ const SubmitButton = styled.button`
     padding: 7px 0;
     border-radius: 3px;
     margin-top: 8px;
+
     &:hover {
         background: linear-gradient(to bottom, #f5d78e, #eeb933);
     }
