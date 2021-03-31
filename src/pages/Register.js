@@ -7,10 +7,11 @@ function Register(props) {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
 
-    const { registerUser } = useContext(GlobalContext);
+    const { registerUser, resetError } = useContext(GlobalContext);
 
     const handleRegistration = (e) => {
         e.preventDefault();
+        resetError();
         registerUser({ name, email, password });
     };
     return (

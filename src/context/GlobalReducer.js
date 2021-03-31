@@ -14,6 +14,11 @@ export const GlobalReducer = (state, action) => {
                 isAuthenticated: false,
                 loading: false,
             };
+        case "RESET_ERROR":
+            return {
+                ...state,
+                registerValidationError: {},
+            };
         default:
             return state;
     }

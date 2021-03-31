@@ -38,8 +38,12 @@ export const GlobalProvider = ({ children }) => {
         }
     }
 
+    function resetError() {
+        dispatch({ type: "RESET_ERROR" });
+    }
+
     return (
-        <GlobalContext.Provider value={{ ...state, registerUser }}>
+        <GlobalContext.Provider value={{ ...state, registerUser, resetError }}>
             {children}
         </GlobalContext.Provider>
     );
