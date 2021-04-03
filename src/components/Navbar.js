@@ -53,8 +53,9 @@ const LogoContainer = styled.div`
     cursor: pointer;
     height: 48px;
     padding: 8px;
+    border: 1px solid transparent;
     &:hover {
-        border: 1px solid white;
+        border-color: white;
         border-radius: 2px;
     }
 `;
@@ -97,6 +98,9 @@ const SearchBarButton = styled.button`
     justify-content: center;
     align-items: center;
     background-color: #febd69;
+    &:hover {
+        background-color: #f3a847;
+    }
 `;
 const SignInContainer = styled.div`
     display: flex;
@@ -105,8 +109,9 @@ const SignInContainer = styled.div`
     margin: 0 10px;
     cursor: pointer;
     padding: 8px;
+    border: 1px solid transparent;
     &:hover {
-        border: 1px solid white;
+        border-color: white;
         border-radius: 2px;
     }
 `;
@@ -123,8 +128,9 @@ const CartContainer = styled.div`
     padding: 8px;
     display: flex;
     align-items: center;
+    border: 1px solid transparent;
     &:hover {
-        border: 1px solid white;
+        border-color: white;
         border-radius: 2px;
     }
 `;
