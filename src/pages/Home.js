@@ -1,6 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import Navbar from "../components/Navbar";
+import Product from "../components/Product";
 
 function Home(props) {
     return (
@@ -8,6 +9,22 @@ function Home(props) {
             <Navbar />
             <MainContainer>
                 <Banner />
+                <Products>
+                    <ProductsRow>
+                        <Product />
+                        <Product />
+                        <Product />
+                    </ProductsRow>
+                    <ProductsRow>
+                        <Product />
+                        <Product />
+                    </ProductsRow>
+                    <ProductsRow>
+                        <Product />
+                        <Product />
+                        <Product />
+                    </ProductsRow>
+                </Products>
             </MainContainer>
         </Container>
     );
@@ -28,4 +45,15 @@ const Banner = styled.div`
     width: 100%;
     height: 600px;
     mask-image: linear-gradient(to bottom, rgba(0, 0, 0, 1), rgba(0, 0, 0, 0));
+`;
+
+const Products = styled.div`
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+`;
+
+const ProductsRow = styled.div`
+    display: flex;
+    gap: 24px;
 `;
