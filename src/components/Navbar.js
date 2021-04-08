@@ -41,7 +41,7 @@ const Container = styled.nav`
     left: 0;
     width: 100%;
     display: flex;
-    z-index: 5;
+    z-index: 100;
     font-size: 14px;
     align-items: center;
 `;

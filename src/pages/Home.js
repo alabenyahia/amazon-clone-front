@@ -51,6 +51,8 @@ const Products = styled.div`
     display: flex;
     flex-direction: column;
     gap: 24px;
+    padding: 24px;
+    margin-top: -300px;
 `;
 
 const ProductsRow = styled.div`
