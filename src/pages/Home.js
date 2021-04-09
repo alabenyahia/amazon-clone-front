@@ -2,6 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import Navbar from "../components/Navbar";
 import Product from "../components/Product";
+import Footer from "../components/Footer";
 
 function Home(props) {
     return (
@@ -26,6 +27,7 @@ function Home(props) {
                     </ProductsRow>
                 </Products>
             </MainContainer>
+            <Footer />
         </Container>
     );
 }
@@ -58,4 +60,5 @@ const Products = styled.div`
 const ProductsRow = styled.div`
     display: flex;
     gap: 24px;
+    flex-wrap: wrap;
 `;

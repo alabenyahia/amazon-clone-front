@@ -19,6 +19,7 @@ const Container = styled.div`
     flex: 1;
     padding: 24px 18px;
     z-index: 10;
+    min-width: 240px;
 `;
 const Title = styled.h3`
     font-size: 16px;
@@ -42,4 +43,13 @@ const ProductImg = styled.img`
     display: block;
     object-fit: contain;
     align-self: center;
+
+    @media screen and (max-width: 880px) {
+        width: 160px;
+        height: 160px;
+    }
+    @media screen and (max-width: 720px) {
+        width: 130px;
+        height: 130px;
+    }
 `;
