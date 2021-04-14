@@ -14,6 +14,11 @@ export const GlobalReducer = (state, action) => {
                 isAuthenticated: false,
                 loading: false,
             };
+        case "PRODUCTS_LOAD_SUCCESS":
+            return {
+                ...state,
+                ...action.payload,
+            };
         case "RESET_ERROR":
             return {
                 ...state,

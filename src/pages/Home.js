@@ -1,16 +1,24 @@
-import React from "react";
+import React, { useContext } from "react";
 import styled from "styled-components";
 import Navbar from "../components/Navbar";
 import Product from "../components/Product";
 import Footer from "../components/Footer";
+import { GlobalContext } from "../context/GlobalState";
 
 function Home(props) {
+    const { products } = useContext(GlobalContext);
+
+    const renderProducts = () => {
+        if (products === null || products.length <= 0) return null;
+        return products.map((product) => <Product key={product._id} {...product} />);
+    };
     return (
         <Container>
             <Navbar />
             <MainContainer>
                 <Banner />
                 <Products>
+                    {renderProducts()}
                     <ProductsRow>
                         <Product />
                         <Product />

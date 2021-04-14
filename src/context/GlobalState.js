@@ -7,6 +7,7 @@ const initialState = {
     loading: true,
     registerValidationError: {},
     loginValidationError: {},
+    products: null,
 };
 
 export const GlobalContext = createContext(initialState);
@@ -62,12 +63,24 @@ export const GlobalProvider = ({ children }) => {
         }
     }
 
+    async function loadAllProducts() {
+        const rawRes = await fetch(`${BASE_URL}/api/product`, {
+            method: "GET",
+        });
+        const res = await rawRes.json();
+        if (rawRes.status === 200) {
+            dispatch({ type: "PRODUCTS_LOAD_SUCCESS", payload: res });
+        }
+    }
+
     function resetError() {
         dispatch({ type: "RESET_ERROR" });
     }
 
     return (
-        <GlobalContext.Provider value={{ ...state, registerUser, resetError, loginUser }}>
+        <GlobalContext.Provider
+            value={{ ...state, registerUser, resetError, loginUser, loadAllProducts }}
+        >
             {children}
         </GlobalContext.Provider>
     );

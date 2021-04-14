@@ -1,13 +1,16 @@
 import React from "react";
 import styled from "styled-components";
 
-function Product(props) {
+function Product({ image, name, price, rating }) {
     return (
         <Container>
-            <Title>PRODUCT TITLE PRODUCT TITLE PRODUCT TITLE PRODUCT TITLE</Title>
-            <Price>$1065.99</Price>
-            <RatingContainer>⭐⭐⭐⭐⭐</RatingContainer>
-            <ProductImg src="https://images-na.ssl-images-amazon.com/images/I/4189N8RLVYL.jpg" />
+            <Title>{name}</Title>
+            <Price>${price}</Price>
+            <RatingContainer>
+                {rating > 0 &&
+                    new Array(parseInt(rating)).fill("⭐").map((star) => <span>{star}</span>)}
+            </RatingContainer>
+            <ProductImg src={image} />
         </Container>
     );
 }
