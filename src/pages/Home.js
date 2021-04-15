@@ -10,30 +10,32 @@ function Home(props) {
 
     const renderProducts = () => {
         if (products === null || products.length <= 0) return null;
-        return products.map((product) => <Product key={product._id} {...product} />);
+        const productsArr = products.map((product) => <Product key={product._id} {...product} />);
+
+        let nextRowNumberOfProducts = Math.floor(Math.random() * 2) + 2;
+        const productsRowsArr = [];
+
+        while (productsArr.length > 0) {
+            const nextRow = [];
+            const limit =
+                productsArr.length >= nextRowNumberOfProducts
+                    ? nextRowNumberOfProducts
+                    : productsArr.length;
+            for (let i = 0; i < limit; i++) {
+                nextRow.push(productsArr.shift());
+            }
+            nextRowNumberOfProducts = Math.floor(Math.random() * 2) + 2;
+            productsRowsArr.push(<ProductsRow>{nextRow}</ProductsRow>);
+        }
+
+        return productsRowsArr;
     };
     return (
         <Container>
             <Navbar />
             <MainContainer>
                 <Banner />
-                <Products>
-                    {renderProducts()}
-                    <ProductsRow>
-                        <Product />
-                        <Product />
-                        <Product />
-                    </ProductsRow>
-                    <ProductsRow>
-                        <Product />
-                        <Product />
-                    </ProductsRow>
-                    <ProductsRow>
-                        <Product />
-                        <Product />
-                        <Product />
-                    </ProductsRow>
-                </Products>
+                <Products>{renderProducts()}</Products>
             </MainContainer>
             <Footer />
         </Container>
