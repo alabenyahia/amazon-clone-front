@@ -2,94 +2,106 @@ import React, { useState, useContext } from "react";
 import styled from "styled-components";
 import { GlobalContext } from "../context/GlobalState";
 import Footer from "../components/Footer";
+import { Redirect } from "react-router-dom";
+import Loading from "../components/Loading";
 
 function Register(props) {
     const [name, setName] = useState("");
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
 
-    const { registerUser, resetError, registerValidationError } = useContext(GlobalContext);
+    const {
+        registerUser,
+        resetError,
+        registerValidationError,
+        loading,
+        isAuthenticated,
+    } = useContext(GlobalContext);
 
     const handleRegistration = (e) => {
         e.preventDefault();
         resetError();
         registerUser({ name, email, password });
     };
-    return (
-        <Container>
-            <LogoContainer>
-                <LogoImg src="https://pngimg.com/uploads/amazon/amazon_PNG6.png" />
-            </LogoContainer>
-            <MainContentContainer>
-                <MainContent>
-                    <PageHeading>Create account</PageHeading>
-                    <MainForm onSubmit={handleRegistration}>
-                        <FormLabel htmlFor="name">Your name</FormLabel>
-                        <FormInput
-                            type="text"
-                            name="name"
-                            id="name"
-                            value={name}
-                            onChange={(e) => setName(e.target.value)}
-                        />
-                        {registerValidationError.name && (
-                            <InputErrorContainer>
-                                <i className="material-icons" style={{ fontSize: "13px" }}>
-                                    priority_high
-                                </i>
-                                <span>{registerValidationError.name}</span>
-                            </InputErrorContainer>
-                        )}
 
-                        <FormLabel htmlFor="email">Email</FormLabel>
-                        <FormInput
-                            type="text"
-                            name="email"
-                            id="email"
-                            value={email}
-                            onChange={(e) => setEmail(e.target.value)}
-                        />
-                        {registerValidationError.email && (
-                            <InputErrorContainer>
-                                <i className="material-icons" style={{ fontSize: "13px" }}>
-                                    priority_high
+    if (loading) return <Loading />;
+    else if (isAuthenticated) return <Redirect to="/" />;
+    else
+        return (
+            <Container>
+                <LogoContainer>
+                    <LogoImg src="https://pngimg.com/uploads/amazon/amazon_PNG6.png" />
+                </LogoContainer>
+                <MainContentContainer>
+                    <MainContent>
+                        <PageHeading>Create account</PageHeading>
+                        <MainForm onSubmit={handleRegistration}>
+                            <FormLabel htmlFor="name">Your name</FormLabel>
+                            <FormInput
+                                type="text"
+                                name="name"
+                                id="name"
+                                value={name}
+                                onChange={(e) => setName(e.target.value)}
+                            />
+                            {registerValidationError.name && (
+                                <InputErrorContainer>
+                                    <i className="material-icons" style={{ fontSize: "13px" }}>
+                                        priority_high
+                                    </i>
+                                    <span>{registerValidationError.name}</span>
+                                </InputErrorContainer>
+                            )}
+
+                            <FormLabel htmlFor="email">Email</FormLabel>
+                            <FormInput
+                                type="text"
+                                name="email"
+                                id="email"
+                                value={email}
+                                onChange={(e) => setEmail(e.target.value)}
+                            />
+                            {registerValidationError.email && (
+                                <InputErrorContainer>
+                                    <i className="material-icons" style={{ fontSize: "13px" }}>
+                                        priority_high
+                                    </i>
+                                    <span>{registerValidationError.email}</span>
+                                </InputErrorContainer>
+                            )}
+                            <FormLabel htmlFor="password">Password</FormLabel>
+                            <FormInput
+                                type="password"
+                                name="password"
+                                id="password"
+                                placeholder="At least 6 characters"
+                                value={password}
+                                onChange={(e) => setPassword(e.target.value)}
+                            />
+                            {registerValidationError.password && (
+                                <InputErrorContainer>
+                                    <i className="material-icons" style={{ fontSize: "13px" }}>
+                                        priority_high
+                                    </i>
+                                    <span>{registerValidationError.password}</span>
+                                </InputErrorContainer>
+                            )}
+                            <SubmitButton>Create your Amazon account</SubmitButton>
+                        </MainForm>
+                        <SignInSection>
+                            <span>Already have an account?</span>
+                            <SignInButton>
+                                <span>Sign-In</span>
+                                <i className="material-icons" style={{ fontSize: "18px" }}>
+                                    arrow_right
                                 </i>
-                                <span>{registerValidationError.email}</span>
-                            </InputErrorContainer>
-                        )}
-                        <FormLabel htmlFor="password">Password</FormLabel>
-                        <FormInput
-                            type="password"
-                            name="password"
-                            id="password"
-                            placeholder="At least 6 characters"
-                            value={password}
-                            onChange={(e) => setPassword(e.target.value)}
-                        />
-                        {registerValidationError.password && (
-                            <InputErrorContainer>
-                                <i className="material-icons" style={{ fontSize: "13px" }}>
-                                    priority_high
-                                </i>
-                                <span>{registerValidationError.password}</span>
-                            </InputErrorContainer>
-                        )}
-                        <SubmitButton>Create your Amazon account</SubmitButton>
-                    </MainForm>
-                    <SignInSection>
-                        <span>Already have an account?</span>
-                        <SignInButton>
-                            <span>Sign-In</span>
-                            <i className="material-icons" style={{ fontSize: "18px" }}>
-                                arrow_right
-                            </i>
-                        </SignInButton>
-                    </SignInSection>
-                </MainContent>
-            </MainContentContainer>
-            <Footer />
-        </Container>
-    );
+                            </SignInButton>
+                        </SignInSection>
+                    </MainContent>
+                </MainContentContainer>
+                <Footer />
+            </Container>
+        );
 }
 
 export default Register;

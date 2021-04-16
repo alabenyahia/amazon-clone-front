@@ -44,7 +44,9 @@ function Home(props) {
 
 export default Home;
 
-const Container = styled.div``;
+const Container = styled.div`
+    background-color: #eaeded;
+`;
 const MainContainer = styled.div`
     width: 100%;
     max-width: 1500px;

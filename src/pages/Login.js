@@ -2,11 +2,15 @@ import React, { useState, useContext } from "react";
 import styled from "styled-components";
 import { GlobalContext } from "../context/GlobalState";
 import Footer from "../components/Footer";
+import { Redirect } from "react-router-dom";
+import Loading from "../components/Loading";
 
 function Login(props) {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
-    const { loginUser, loginValidationError, resetError } = useContext(GlobalContext);
+    const { loginUser, loginValidationError, resetError, loading, isAuthenticated } = useContext(
+        GlobalContext
+    );
 
     const handleLogin = (e) => {
         e.preventDefault();
@@ -15,61 +19,64 @@ function Login(props) {
         loginUser({ email, password });
     };
 
-    return (
-        <Container>
-            <LogoContainer>
-                <LogoImg src="https://pngimg.com/uploads/amazon/amazon_PNG6.png" />
-            </LogoContainer>
-            <MainContentContainer>
-                <MainContent>
-                    <PageHeading>Sign-In</PageHeading>
-                    <MainForm onSubmit={handleLogin}>
-                        <FormLabel htmlFor="email">Email</FormLabel>
-                        <FormInput
-                            type="text"
-                            name="email"
-                            id="email"
-                            value={email}
-                            onChange={(e) => setEmail(e.target.value)}
-                        />
-                        {loginValidationError.email && (
-                            <InputErrorContainer>
-                                <i className="material-icons" style={{ fontSize: "13px" }}>
-                                    priority_high
-                                </i>
-                                <span>{loginValidationError.email}</span>
-                            </InputErrorContainer>
-                        )}
-                        <FormLabel htmlFor="password">Password</FormLabel>
-                        <FormInput
-                            type="password"
-                            name="password"
-                            id="password"
-                            value={password}
-                            onChange={(e) => setPassword(e.target.value)}
-                        />
-                        {loginValidationError.password && (
-                            <InputErrorContainer>
-                                <i className="material-icons" style={{ fontSize: "13px" }}>
-                                    priority_high
-                                </i>
-                                <span>{loginValidationError.password}</span>
-                            </InputErrorContainer>
-                        )}
-                        <SubmitButton>Sign-In</SubmitButton>
-                    </MainForm>
-                </MainContent>
-                <RegisterSection>
-                    <RegisterDivider>
-                        <RegisterDividerText>New to Amazon?</RegisterDividerText>
-                    </RegisterDivider>
-                    <RegisterButton>Create your Amazon account</RegisterButton>
-                </RegisterSection>
-            </MainContentContainer>
+    if (loading) return <Loading />;
+    else if (isAuthenticated) return <Redirect to="/" />;
+    else
+        return (
+            <Container>
+                <LogoContainer>
+                    <LogoImg src="https://pngimg.com/uploads/amazon/amazon_PNG6.png" />
+                </LogoContainer>
+                <MainContentContainer>
+                    <MainContent>
+                        <PageHeading>Sign-In</PageHeading>
+                        <MainForm onSubmit={handleLogin}>
+                            <FormLabel htmlFor="email">Email</FormLabel>
+                            <FormInput
+                                type="text"
+                                name="email"
+                                id="email"
+                                value={email}
+                                onChange={(e) => setEmail(e.target.value)}
+                            />
+                            {loginValidationError.email && (
+                                <InputErrorContainer>
+                                    <i className="material-icons" style={{ fontSize: "13px" }}>
+                                        priority_high
+                                    </i>
+                                    <span>{loginValidationError.email}</span>
+                                </InputErrorContainer>
+                            )}
+                            <FormLabel htmlFor="password">Password</FormLabel>
+                            <FormInput
+                                type="password"
+                                name="password"
+                                id="password"
+                                value={password}
+                                onChange={(e) => setPassword(e.target.value)}
+                            />
+                            {loginValidationError.password && (
+                                <InputErrorContainer>
+                                    <i className="material-icons" style={{ fontSize: "13px" }}>
+                                        priority_high
+                                    </i>
+                                    <span>{loginValidationError.password}</span>
+                                </InputErrorContainer>
+                            )}
+                            <SubmitButton>Sign-In</SubmitButton>
+                        </MainForm>
+                    </MainContent>
+                    <RegisterSection>
+                        <RegisterDivider>
+                            <RegisterDividerText>New to Amazon?</RegisterDividerText>
+                        </RegisterDivider>
+                        <RegisterButton>Create your Amazon account</RegisterButton>
+                    </RegisterSection>
+                </MainContentContainer>
 
-            <Footer />
-        </Container>
-    );
+                <Footer />
+            </Container>
+        );
 }
 
 export default Login;

@@ -2,11 +2,14 @@ import { createContext, useReducer } from "react";
 import { GlobalReducer } from "./GlobalReducer";
 
 const initialState = {
+    token: localStorage.getItem("AMAZON_CLONE-token"),
     user: null,
     isAuthenticated: null,
     loading: true,
     registerValidationError: {},
     loginValidationError: {},
+    authError: {},
+    serverError: {},
     products: null,
 };
 
@@ -63,6 +66,39 @@ export const GlobalProvider = ({ children }) => {
         }
     }
 
+    async function loadUser() {
+        try {
+            const headers = {
+                "Content-Type": "application/json",
+            };
+            const token = localStorage.getItem("AMAZON_CLONE-token");
+            if (token) headers["auth-token"] = token;
+            const rawRes = await fetch(`${BASE_URL}/api/user/`, {
+                method: "GET",
+                headers,
+            });
+            const res = await rawRes.json();
+            if (rawRes.status === 200) {
+                dispatch({ type: "USER_LOAD_SUCCESS", payload: res });
+            } else if (rawRes.status === 500) {
+                dispatch({
+                    type: "USER_LOAD_FAIL",
+                    payload: { serverError: "Something went wrong" },
+                });
+            } else {
+                dispatch({
+                    type: "USER_LOAD_FAIL",
+                    payload: res,
+                });
+            }
+        } catch (err) {
+            dispatch({
+                type: "USER_LOAD_FAIL",
+                payload: { serverError: "Something went wrong" },
+            });
+        }
+    }
+
     async function loadAllProducts() {
         const rawRes = await fetch(`${BASE_URL}/api/product`, {
             method: "GET",
@@ -79,7 +115,7 @@ export const GlobalProvider = ({ children }) => {
 
     return (
         <GlobalContext.Provider
-            value={{ ...state, registerUser, resetError, loginUser, loadAllProducts }}
+            value={{ ...state, registerUser, resetError, loginUser, loadAllProducts, loadUser }}
         >
             {children}
         </GlobalContext.Provider>

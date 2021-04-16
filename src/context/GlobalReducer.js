@@ -1,6 +1,10 @@
 export const GlobalReducer = (state, action) => {
     switch (action.type) {
         case "REGISTER_SUCCESS":
+        case "LOGIN_SUCCESS":
+        case "USER_LOAD_SUCCESS":
+            if (action.payload.token)
+                localStorage.setItem("AMAZON_CLONE-token", action.payload.token);
             return {
                 ...state,
                 ...action.payload,
@@ -8,9 +12,13 @@ export const GlobalReducer = (state, action) => {
                 loading: false,
             };
         case "REGISTER_FAIL":
+        case "LOGIN_FAIL":
+        case "USER_LOAD_FAIL":
+            localStorage.removeItem("AMAZON_CLONE-token");
             return {
                 ...state,
                 ...action.payload,
+                token: null,
                 isAuthenticated: false,
                 loading: false,
             };
@@ -24,6 +32,8 @@ export const GlobalReducer = (state, action) => {
                 ...state,
                 registerValidationError: {},
                 loginValidationError: {},
+                serverError: {},
+                authError: {},
             };
         default:
             return state;
