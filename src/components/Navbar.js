@@ -1,8 +1,10 @@
-import React from "react";
+import React, { useContext } from "react";
 import styled from "styled-components";
 import Dark from "../imgs/dark-logo.svg";
+import { GlobalContext } from "../context/GlobalState";
 
 function Navbar(props) {
+    const { user } = useContext(GlobalContext);
     return (
         <Container>
             <LogoContainer>
@@ -17,7 +19,17 @@ function Navbar(props) {
                 </SearchBarButton>
             </SearchBarForm>
             <SignInContainer>
-                <SignInTopText>Hello, Sign in</SignInTopText>
+                <SignInTopText>
+                    Hello, {user !== null && user.hasOwnProperty("name") ? user.name : "Sign in"}
+                    <DropDownContainer>
+                        <DropDownSignInBtn>Sign in</DropDownSignInBtn>
+                        <DropDownRegisterText>
+                            New customer?
+                            <DropDownRegisterBtn>Start here.</DropDownRegisterBtn>
+                        </DropDownRegisterText>
+                    </DropDownContainer>
+                    <DropDownTriangle />
+                </SignInTopText>
                 <SignInBottomText>Account & Lists</SignInBottomText>
             </SignInContainer>
             <CartContainer>
@@ -118,6 +130,7 @@ const SignInContainer = styled.div`
 const SignInTopText = styled.span`
     font-size: 12px;
     font-weight: 400;
+    position: relative;
 `;
 const SignInBottomText = styled.span`
     font-weight: 700;
@@ -138,4 +151,40 @@ const CartIconContainer = styled.div``;
 const CartTextContainer = styled.div`
     font-weight: 700;
     margin-left: 4px;
+`;
+
+const DropDownContainer = styled.div`
+    width: 180px;
+    border-radius: 2px;
+    position: absolute;
+    background-color: white;
+    color: #0f1111;
+    left: -30%;
+    top: 42px;
+`;
+
+const DropDownSignInBtn = styled.button`
+    background: none;
+    outline: none;
+    border: none;
+`;
+const DropDownRegisterText = styled.div`
+    font-size: 12px;
+    font-weight: 400;
+`;
+const DropDownRegisterBtn = styled.button`
+    background: none;
+    outline: none;
+    border: none;
+`;
+
+const DropDownTriangle = styled.div`
+    width: 0;
+    height: 0;
+    border-left: 7px solid transparent;
+    border-right: 7px solid transparent;
+    border-bottom: 9px solid white;
+    position: absolute;
+    top: 33px;
+    left: 50%;
 `;
