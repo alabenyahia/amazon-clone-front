@@ -4,7 +4,7 @@ import Dark from "../imgs/dark-logo.svg";
 import { GlobalContext } from "../context/GlobalState";
 
 function Navbar(props) {
-    const { user } = useContext(GlobalContext);
+    const { user, isAuthenticated } = useContext(GlobalContext);
     return (
         <Container>
             <LogoContainer>
@@ -28,11 +28,15 @@ function Navbar(props) {
                 </SignInMain>
 
                 <DropDownContainer>
-                    <DropDownSignInBtn>Sign in</DropDownSignInBtn>
-                    <DropDownRegisterText>
-                        New customer?
-                        <DropDownRegisterBtn>Start here.</DropDownRegisterBtn>
-                    </DropDownRegisterText>
+                    <DropDownSignInBtn>
+                        {isAuthenticated ? "Sign out" : "Sign in"}
+                    </DropDownSignInBtn>
+                    {!isAuthenticated && (
+                        <DropDownRegisterText>
+                            New customer?
+                            <DropDownRegisterBtn>Start here.</DropDownRegisterBtn>
+                        </DropDownRegisterText>
+                    )}
                 </DropDownContainer>
                 <DropDownTriangle />
             </SignInContainer>
