@@ -19,18 +19,22 @@ function Navbar(props) {
                 </SearchBarButton>
             </SearchBarForm>
             <SignInContainer>
-                <SignInTopText>
-                    Hello, {user !== null && user.hasOwnProperty("name") ? user.name : "Sign in"}
-                    <DropDownContainer>
-                        <DropDownSignInBtn>Sign in</DropDownSignInBtn>
-                        <DropDownRegisterText>
-                            New customer?
-                            <DropDownRegisterBtn>Start here.</DropDownRegisterBtn>
-                        </DropDownRegisterText>
-                    </DropDownContainer>
-                    <DropDownTriangle />
-                </SignInTopText>
-                <SignInBottomText>Account & Lists</SignInBottomText>
+                <SignInMain>
+                    <SignInTopText>
+                        Hello,{" "}
+                        {user !== null && user.hasOwnProperty("name") ? user.name : "Sign in"}
+                    </SignInTopText>
+                    <SignInBottomText>Account & Lists</SignInBottomText>
+                </SignInMain>
+
+                <DropDownContainer>
+                    <DropDownSignInBtn>Sign in</DropDownSignInBtn>
+                    <DropDownRegisterText>
+                        New customer?
+                        <DropDownRegisterBtn>Start here.</DropDownRegisterBtn>
+                    </DropDownRegisterText>
+                </DropDownContainer>
+                <DropDownTriangle />
             </SignInContainer>
             <CartContainer>
                 <CartIconContainer>
@@ -114,7 +118,8 @@ const SearchBarButton = styled.button`
         background-color: #f3a847;
     }
 `;
-const SignInContainer = styled.div`
+
+const SignInMain = styled.div`
     display: flex;
     flex-direction: column;
     line-height: 15px;
@@ -127,10 +132,10 @@ const SignInContainer = styled.div`
         border-radius: 2px;
     }
 `;
+
 const SignInTopText = styled.span`
     font-size: 12px;
     font-weight: 400;
-    position: relative;
 `;
 const SignInBottomText = styled.span`
     font-weight: 700;
@@ -154,37 +159,81 @@ const CartTextContainer = styled.div`
 `;
 
 const DropDownContainer = styled.div`
+    display: none;
     width: 180px;
     border-radius: 2px;
     position: absolute;
     background-color: white;
     color: #0f1111;
-    left: -30%;
-    top: 42px;
+    left: -15%;
+    top: 47px;
+    padding: 14px;
+    text-align: center;
+    -webkit-box-shadow: 0 5px 16px 2px rgba(0, 0, 0, 0.26);
+    -moz-box-shadow: 0 5px 16px 2px rgba(0, 0, 0, 0.26);
+    box-shadow: 0 5px 16px 2px rgba(0, 0, 0, 0.26);
 `;
 
 const DropDownSignInBtn = styled.button`
-    background: none;
+    width: 120px;
+    background: #f0c14b;
+    background: linear-gradient(to bottom, #f7dfa5, #f0c14b);
+    border-color: #a88734 #9c7e31 #846a29;
+    border-width: 1px;
+    border-style: solid;
     outline: none;
-    border: none;
+    cursor: pointer;
+    padding: 7px 0;
+    border-radius: 3px;
+    font-size: 12px;
+
+    &:hover {
+        background: linear-gradient(to bottom, #f5d78e, #eeb933);
+    }
+    &:active {
+        background-color: #f0c14b;
+        box-shadow: 0 1px 3px rgb(0 0 0 / 20%) inset;
+    }
+    &:focus {
+        border-color: #e77600;
+        box-shadow: 0 0 3px 2px rgb(228 121 17 / 50%);
+    }
 `;
 const DropDownRegisterText = styled.div`
     font-size: 12px;
     font-weight: 400;
+    text-align: left;
+    margin-top: 10px;
 `;
 const DropDownRegisterBtn = styled.button`
     background: none;
     outline: none;
     border: none;
+    font-size: 12px;
+    color: #0066c0;
+    cursor: pointer;
+    &:hover {
+        text-decoration: underline;
+    }
 `;
 
 const DropDownTriangle = styled.div`
+    display: none;
     width: 0;
     height: 0;
     border-left: 7px solid transparent;
     border-right: 7px solid transparent;
     border-bottom: 9px solid white;
     position: absolute;
-    top: 33px;
+    top: 38px;
     left: 50%;
+`;
+
+const SignInContainer = styled.div`
+    position: relative;
+    &:hover {
+        & ${DropDownContainer}, & ${DropDownTriangle} {
+            display: block;
+        }
+    }
 `;
