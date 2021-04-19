@@ -2,7 +2,7 @@ import React, { useState, useContext } from "react";
 import styled from "styled-components";
 import { GlobalContext } from "../context/GlobalState";
 import Footer from "../components/Footer";
-import { Redirect } from "react-router-dom";
+import { Redirect, useHistory } from "react-router-dom";
 import Loading from "../components/Loading";
 
 function Register(props) {
@@ -17,6 +17,8 @@ function Register(props) {
         loading,
         isAuthenticated,
     } = useContext(GlobalContext);
+
+    const history = useHistory();
 
     const handleRegistration = (e) => {
         e.preventDefault();
@@ -91,7 +93,7 @@ function Register(props) {
                         <SignInSection>
                             <span>Already have an account?</span>
                             <SignInButton>
-                                <span>Sign-In</span>
+                                <span onClick={() => history.push("/login")}>Sign-In</span>
                                 <i className="material-icons" style={{ fontSize: "18px" }}>
                                     arrow_right
                                 </i>

@@ -2,7 +2,7 @@ import React, { useState, useContext } from "react";
 import styled from "styled-components";
 import { GlobalContext } from "../context/GlobalState";
 import Footer from "../components/Footer";
-import { Redirect } from "react-router-dom";
+import { Redirect, useHistory } from "react-router-dom";
 import Loading from "../components/Loading";
 
 function Login(props) {
@@ -11,6 +11,7 @@ function Login(props) {
     const { loginUser, loginValidationError, resetError, loading, isAuthenticated } = useContext(
         GlobalContext
     );
+    const history = useHistory();
 
     const handleLogin = (e) => {
         e.preventDefault();
@@ -70,7 +71,9 @@ function Login(props) {
                         <RegisterDivider>
                             <RegisterDividerText>New to Amazon?</RegisterDividerText>
                         </RegisterDivider>
-                        <RegisterButton>Create your Amazon account</RegisterButton>
+                        <RegisterButton onClick={() => history.push("/register")}>
+                            Create your Amazon account
+                        </RegisterButton>
                     </RegisterSection>
                 </MainContentContainer>
 
