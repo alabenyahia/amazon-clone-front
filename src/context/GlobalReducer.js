@@ -14,11 +14,13 @@ export const GlobalReducer = (state, action) => {
         case "REGISTER_FAIL":
         case "LOGIN_FAIL":
         case "USER_LOAD_FAIL":
+        case "USER_LOGOUT":
             localStorage.removeItem("AMAZON_CLONE-token");
             return {
                 ...state,
                 ...action.payload,
                 token: null,
+                user: null,
                 isAuthenticated: false,
                 loading: false,
             };

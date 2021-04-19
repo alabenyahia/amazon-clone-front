@@ -2,9 +2,14 @@ import React, { useContext } from "react";
 import styled from "styled-components";
 import Dark from "../imgs/dark-logo.svg";
 import { GlobalContext } from "../context/GlobalState";
-
+import { useHistory } from "react-router-dom";
 function Navbar(props) {
-    const { user, isAuthenticated } = useContext(GlobalContext);
+    const { user, isAuthenticated, logout } = useContext(GlobalContext);
+    const history = useHistory();
+    const handleSignInOut = () => {
+        if (isAuthenticated) logout();
+        else history.push("/login");
+    };
     return (
         <Container>
             <LogoContainer>
@@ -28,13 +33,15 @@ function Navbar(props) {
                 </SignInMain>
 
                 <DropDownContainer>
-                    <DropDownSignInBtn>
+                    <DropDownSignInBtn onClick={handleSignInOut}>
                         {isAuthenticated ? "Sign out" : "Sign in"}
                     </DropDownSignInBtn>
                     {!isAuthenticated && (
                         <DropDownRegisterText>
                             New customer?
-                            <DropDownRegisterBtn>Start here.</DropDownRegisterBtn>
+                            <DropDownRegisterBtn onClick={() => history.push("/register")}>
+                                Start here.
+                            </DropDownRegisterBtn>
                         </DropDownRegisterText>
                     )}
                 </DropDownContainer>

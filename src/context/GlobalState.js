@@ -66,6 +66,10 @@ export const GlobalProvider = ({ children }) => {
         }
     }
 
+    function logout() {
+        dispatch({ type: "USER_LOGOUT" });
+    }
+
     async function loadUser() {
         try {
             const headers = {
@@ -115,7 +119,15 @@ export const GlobalProvider = ({ children }) => {
 
     return (
         <GlobalContext.Provider
-            value={{ ...state, registerUser, resetError, loginUser, loadAllProducts, loadUser }}
+            value={{
+                ...state,
+                registerUser,
+                resetError,
+                loginUser,
+                loadAllProducts,
+                loadUser,
+                logout,
+            }}
         >
             {children}
         </GlobalContext.Provider>
