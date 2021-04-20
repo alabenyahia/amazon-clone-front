@@ -11,6 +11,7 @@ function Product({ image, name, price, rating }) {
                     new Array(parseInt(rating)).fill("⭐").map((star) => <span>{star}</span>)}
             </RatingContainer>
             <ProductImg src={image} />
+            <AddToCartBtn>Add to cart</AddToCartBtn>
         </Container>
     );
 }
@@ -23,6 +24,7 @@ const Container = styled.div`
     padding: 24px 18px;
     z-index: 10;
     min-width: 240px;
+    text-align: center;
 `;
 const Title = styled.h3`
     font-size: 16px;
@@ -38,6 +40,7 @@ const Price = styled.span`
 
 const RatingContainer = styled.div`
     margin-bottom: 8px;
+    min-height: 30px;
 `;
 const ProductImg = styled.img`
     width: 200px;
@@ -54,5 +57,30 @@ const ProductImg = styled.img`
     @media screen and (max-width: 720px) {
         width: 130px;
         height: 130px;
+    }
+`;
+
+const AddToCartBtn = styled.button`
+    background: #f0c14b;
+    background: linear-gradient(to bottom, #f7dfa5, #f0c14b);
+    border-color: #a88734 #9c7e31 #846a29;
+    border-width: 1px;
+    border-style: solid;
+    outline: none;
+    cursor: pointer;
+    padding: 7px 14px;
+    border-radius: 3px;
+    margin-top: 8px;
+
+    &:hover {
+        background: linear-gradient(to bottom, #f5d78e, #eeb933);
+    }
+    &:active {
+        background-color: #f0c14b;
+        box-shadow: 0 1px 3px rgb(0 0 0 / 20%) inset;
+    }
+    &:focus {
+        border-color: #e77600;
+        box-shadow: 0 0 3px 2px rgb(228 121 17 / 50%);
     }
 `;
