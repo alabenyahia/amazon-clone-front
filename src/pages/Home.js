@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import styled from "styled-components";
 import Navbar from "../components/Navbar";
 import Product from "../components/Product";
@@ -7,7 +7,7 @@ import { GlobalContext } from "../context/GlobalState";
 
 function Home(props) {
     const { products } = useContext(GlobalContext);
-
+    const [productsUI, setProductsUI] = useState([]);
     const renderProducts = () => {
         if (products === null || products.length <= 0) return null;
         const productsArr = products.map((product) => <Product key={product._id} {...product} />);
@@ -30,12 +30,17 @@ function Home(props) {
 
         return productsRowsArr;
     };
+
+    useEffect(() => {
+        setProductsUI(renderProducts());
+    }, [products]);
+
     return (
         <Container>
             <Navbar />
             <MainContainer>
                 <Banner />
-                <Products>{renderProducts()}</Products>
+                <Products>{productsUI}</Products>
             </MainContainer>
             <Footer />
         </Container>

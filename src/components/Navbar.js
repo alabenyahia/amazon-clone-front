@@ -51,7 +51,7 @@ function Navbar(props) {
                 <CartIconContainer>
                     <i className="material-icons">shopping_cart</i>
                 </CartIconContainer>
-                <CartTextContainer>Cart</CartTextContainer>
+                <CartTextContainer>{user.cart.length}</CartTextContainer>
             </CartContainer>
         </Container>
     );

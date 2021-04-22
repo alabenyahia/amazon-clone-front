@@ -1,7 +1,13 @@
 import React from "react";
 import styled from "styled-components";
+import { GlobalContext } from "../context/GlobalState";
+import { useContext } from "react";
 
-function Product({ image, name, price, rating }) {
+function Product({ _id: id, image, name, price, rating }) {
+    const { addToCart } = useContext(GlobalContext);
+    const handleAddToCart = () => {
+        addToCart(id);
+    };
     return (
         <Container>
             <Title>{name}</Title>
@@ -11,7 +17,7 @@ function Product({ image, name, price, rating }) {
                     new Array(parseInt(rating)).fill("⭐").map((star) => <span>{star}</span>)}
             </RatingContainer>
             <ProductImg src={image} />
-            <AddToCartBtn>Add to cart</AddToCartBtn>
+            <AddToCartBtn onClick={handleAddToCart}>Add to cart</AddToCartBtn>
         </Container>
     );
 }
