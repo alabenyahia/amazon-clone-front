@@ -47,7 +47,7 @@ function Navbar(props) {
                 </DropDownContainer>
                 <DropDownTriangle />
             </SignInContainer>
-            <CartContainer>
+            <CartContainer onClick={() => history.push("/checkout")}>
                 <CartIconContainer>
                     <i className="material-icons">shopping_cart</i>
                 </CartIconContainer>
