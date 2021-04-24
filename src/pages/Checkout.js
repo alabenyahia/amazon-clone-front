@@ -2,13 +2,20 @@ import React from "react";
 import styled from "styled-components";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
+import CartProduct from "../components/CartProduct";
 
 function Checkout(props) {
     return (
         <Container>
             <Navbar />
             <MainContainer>
-                <CartContainer></CartContainer>
+                <CartContainer>
+                    <CartH3>Shopping Cart</CartH3>
+                    <CartProduct />
+                    <CartProduct />
+                    <CartProduct />
+                    <CartProduct />
+                </CartContainer>
                 <TotalPriceContainer>
                     <TotalPriceText>
                         Subtotal (4 items): <TotalPriceTextSpan>$1,206.93</TotalPriceTextSpan>
@@ -38,13 +45,26 @@ const MainContainer = styled.div`
     align-items: flex-start;
 `;
 
-const CartContainer = styled.div``;
+const CartContainer = styled.div`
+    background-color: white;
+    flex: 1;
+    color: #0f1111;
+    padding: 30px 15px;
+`;
+
+const CartH3 = styled.h3`
+    font-size: 28px;
+    font-weight: 400;
+    padding-bottom: 18px;
+    border-bottom: 1px solid #ddd;
+`;
 
 const TotalPriceContainer = styled.div`
     padding: 18px;
     width: 300px;
     background-color: white;
     color: #0f1111;
+    margin-left: 20px;
 `;
 
 const TotalPriceText = styled.p`
