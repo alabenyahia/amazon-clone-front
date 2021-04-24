@@ -3,18 +3,21 @@ import styled from "styled-components";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import CartProduct from "../components/CartProduct";
+import { GlobalContext } from "../context/GlobalState";
+import { useContext } from "react";
 
 function Checkout(props) {
+    const { user } = useContext(GlobalContext);
     return (
         <Container>
             <Navbar />
             <MainContainer>
                 <CartContainer>
-                    <CartH3>Shopping Cart</CartH3>
-                    <CartProduct />
-                    <CartProduct />
-                    <CartProduct />
-                    <CartProduct />
+                    <CartH3>
+                        {user.cart.length > 0 ? "Shopping Cart" : "Your Amazon Cart is empty"}
+                    </CartH3>
+                    {user.cart.length > 0 &&
+                        user.cart.map((product) => <CartProduct {...product} />)}
                 </CartContainer>
                 <TotalPriceContainer>
                     <TotalPriceText>

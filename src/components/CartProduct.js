@@ -1,14 +1,17 @@
 import React from "react";
 import styled from "styled-components";
 
-function CartProduct(props) {
+function CartProduct({ _id: id, image, name, price, rating }) {
     return (
         <Container>
-            <ProductImg src="https://images-na.ssl-images-amazon.com/images/I/41McnBJl0FL.jpg" />
+            <ProductImg src={image} />
             <ProductDetailsContainer>
-                <Title>Playstation DualSense Wireless Controller - 2</Title>
-                <Price>$69.99</Price>
-                <RatingContainer>⭐⭐⭐⭐⭐</RatingContainer>
+                <Title>{name}</Title>
+                <Price>${price}</Price>
+                <RatingContainer>
+                    {rating > 0 &&
+                        new Array(parseInt(rating)).fill("⭐").map((star) => <span>{star}</span>)}
+                </RatingContainer>
             </ProductDetailsContainer>
         </Container>
     );
