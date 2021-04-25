@@ -5,6 +5,7 @@ import Footer from "../components/Footer";
 import CartProduct from "../components/CartProduct";
 import { GlobalContext } from "../context/GlobalState";
 import { useContext } from "react";
+import CurrencyFormat from "react-currency-format";
 
 function Checkout(props) {
     const { user } = useContext(GlobalContext);
@@ -19,12 +20,26 @@ function Checkout(props) {
                     {user.cart.length > 0 &&
                         user.cart.map((product) => <CartProduct {...product} />)}
                 </CartContainer>
-                <TotalPriceContainer>
-                    <TotalPriceText>
-                        Subtotal (4 items): <TotalPriceTextSpan>$1,206.93</TotalPriceTextSpan>
-                    </TotalPriceText>
-                    <CheckoutButton>Proceed to checkout</CheckoutButton>
-                </TotalPriceContainer>
+                {user.cart.length > 0 && (
+                    <TotalPriceContainer>
+                        <TotalPriceText>
+                            Subtotal ({user.cart.length} items):{" "}
+                            <TotalPriceTextSpan>
+                                <CurrencyFormat
+                                    value={user.cart.reduce(
+                                        (accumulator, currVal) => accumulator + currVal.price,
+                                        0
+                                    )}
+                                    displayType="text"
+                                    thousandSeparator={true}
+                                    decimalScale={2}
+                                    prefix={"$"}
+                                />
+                            </TotalPriceTextSpan>
+                        </TotalPriceText>
+                        <CheckoutButton>Proceed to checkout</CheckoutButton>
+                    </TotalPriceContainer>
+                )}
             </MainContainer>
             <Footer />
         </Container>
