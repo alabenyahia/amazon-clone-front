@@ -4,13 +4,24 @@ import Navbar from "../components/Navbar";
 import Product from "../components/Product";
 import Footer from "../components/Footer";
 import { GlobalContext } from "../context/GlobalState";
+import { Route, Switch, useParams } from "react-router-dom";
 
 function Home(props) {
     const { products } = useContext(GlobalContext);
-    const [productsUI, setProductsUI] = useState([]);
-    const renderProducts = () => {
+
+    const { q } = useParams();
+
+    const renderProducts = (renderAll) => {
         if (products === null || products.length <= 0) return null;
-        const productsArr = products.map((product) => <Product key={product._id} {...product} />);
+        let productsCopy = [...products];
+        if (!renderAll && q)
+            productsCopy = productsCopy.filter((prod) =>
+                prod.name.toLowerCase().includes(q.toLowerCase())
+            );
+
+        const productsArr = productsCopy.map((product) => (
+            <Product key={product._id} {...product} />
+        ));
 
         let nextRowNumberOfProducts = Math.floor(Math.random() * 2) + 2;
         const productsRowsArr = [];
@@ -31,20 +42,41 @@ function Home(props) {
         return productsRowsArr;
     };
 
-    useEffect(() => {
-        setProductsUI(renderProducts());
-    }, [products]);
-
     return (
         <Container>
             <Navbar />
             <MainContainer>
                 <Banner />
-                <Products>{productsUI}</Products>
+                <Switch>
+                    <Route path="/search/:q">
+                        <RenderSearch />
+                    </Route>
+                    <Route path="/">
+                        <RenderAll />
+                    </Route>
+                </Switch>
             </MainContainer>
             <Footer />
         </Container>
     );
+
+    //TODO: fix PRODUCTS rerender when click add to cart (causing rows to change - because of my random rows functionality)
+
+    function RenderAll() {
+        const [productsUI, setProductsUI] = useState([]);
+        useEffect(() => {
+            setProductsUI(renderProducts(true));
+        }, [products]);
+        return <Products>{productsUI}</Products>;
+    }
+
+    function RenderSearch() {
+        const [productsUI, setProductsUI] = useState([]);
+        useEffect(() => {
+            setProductsUI(renderProducts(false));
+        }, [products]);
+        return <Products>{productsUI}</Products>;
+    }
 }
 
 export default Home;

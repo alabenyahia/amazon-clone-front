@@ -1,22 +1,35 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import styled from "styled-components";
 import Dark from "../imgs/dark-logo.svg";
 import { GlobalContext } from "../context/GlobalState";
 import { useHistory } from "react-router-dom";
 function Navbar(props) {
     const { user, isAuthenticated, logout } = useContext(GlobalContext);
+    const [search, setSearch] = useState("");
     const history = useHistory();
     const handleSignInOut = () => {
         if (isAuthenticated) logout();
         else history.push("/login");
+    };
+
+    const handleSearchSubmit = (e) => {
+        e.preventDefault();
+        if (search.length > 0) {
+            history.push(`/search/${search}`);
+            setSearch("");
+        }
     };
     return (
         <Container>
             <LogoContainer onClick={() => history.push("/")}>
                 <LogoImg src={Dark} />
             </LogoContainer>
-            <SearchBarForm>
-                <SearchBarInput type="text" />
+            <SearchBarForm onSubmit={handleSearchSubmit}>
+                <SearchBarInput
+                    type="text"
+                    value={search}
+                    onChange={(e) => setSearch(e.target.value)}
+                />
                 <SearchBarButton type="submit">
                     <i className="material-icons" style={{ fontSize: "28px" }}>
                         search
