@@ -12,7 +12,7 @@ function Navbar(props) {
     };
     return (
         <Container>
-            <LogoContainer>
+            <LogoContainer onClick={() => history.push("/")}>
                 <LogoImg src={Dark} />
             </LogoContainer>
             <SearchBarForm>

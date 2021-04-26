@@ -19,6 +19,24 @@ function Checkout(props) {
                     </CartH3>
                     {user.cart.length > 0 &&
                         user.cart.map((product) => <CartProduct {...product} />)}
+
+                    <CartPriceTextContainer>
+                        <TotalPriceText>
+                            Subtotal ({user.cart.length} items):{" "}
+                            <TotalPriceTextSpan>
+                                <CurrencyFormat
+                                    value={user.cart.reduce(
+                                        (accumulator, currVal) => accumulator + currVal.price,
+                                        0
+                                    )}
+                                    displayType="text"
+                                    thousandSeparator={true}
+                                    decimalScale={2}
+                                    prefix={"$"}
+                                />
+                            </TotalPriceTextSpan>
+                        </TotalPriceText>
+                    </CartPriceTextContainer>
                 </CartContainer>
                 {user.cart.length > 0 && (
                     <TotalPriceContainer>
@@ -75,6 +93,11 @@ const CartH3 = styled.h3`
     font-weight: 400;
     padding-bottom: 18px;
     border-bottom: 1px solid #ddd;
+`;
+
+const CartPriceTextContainer = styled.div`
+    padding-top: 8px;
+    text-align: right;
 `;
 
 const TotalPriceContainer = styled.div`

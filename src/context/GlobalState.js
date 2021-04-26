@@ -127,7 +127,26 @@ export const GlobalProvider = ({ children }) => {
             });
             const res = await rawRes.json();
             if (rawRes.status === 200) {
-                dispatch({ type: "ADDED_TO_CARD_SUCCESS", payload: res });
+                dispatch({ type: "ADD_TO_CART_SUCCESS", payload: res });
+            }
+        } catch (err) {}
+    }
+
+    async function removeFromCart(productid) {
+        try {
+            const headers = {
+                "Content-Type": "application/json",
+            };
+            const token = localStorage.getItem("AMAZON_CLONE-token");
+            if (token) headers["auth-token"] = token;
+            const rawRes = await fetch(`${BASE_URL}/api/user/removefromcart`, {
+                method: "POST",
+                headers,
+                body: JSON.stringify({ productid }),
+            });
+            const res = await rawRes.json();
+            if (rawRes.status === 200) {
+                dispatch({ type: "REMOVE_FROM_CART_SUCCESS", payload: res });
             }
         } catch (err) {}
     }
@@ -147,6 +166,7 @@ export const GlobalProvider = ({ children }) => {
                 loadUser,
                 logout,
                 addToCart,
+                removeFromCart,
             }}
         >
             {children}

@@ -1,17 +1,29 @@
-import React from "react";
+import React, { useContext } from "react";
 import styled from "styled-components";
+import CurrencyFormat from "react-currency-format";
+import { GlobalContext } from "../context/GlobalState";
 
 function CartProduct({ _id: id, image, name, price, rating }) {
+    const { removeFromCart } = useContext(GlobalContext);
     return (
         <Container>
             <ProductImg src={image} />
             <ProductDetailsContainer>
                 <Title>{name}</Title>
-                <Price>${price}</Price>
+                <Price>
+                    <CurrencyFormat
+                        value={price}
+                        displayType="text"
+                        thousandSeparator={true}
+                        decimalScale={2}
+                        prefix={"$"}
+                    />
+                </Price>
                 <RatingContainer>
                     {rating > 0 &&
                         new Array(parseInt(rating)).fill("⭐").map((star) => <span>{star}</span>)}
                 </RatingContainer>
+                <DeleteBtn onClick={() => removeFromCart(id)}>Delete</DeleteBtn>
             </ProductDetailsContainer>
         </Container>
     );
@@ -51,5 +63,16 @@ const Price = styled.span`
 
 const RatingContainer = styled.div`
     margin-bottom: 8px;
-    min-height: 30px;
+`;
+
+const DeleteBtn = styled.button`
+    background: none;
+    border: none;
+    outline: none;
+    color: #007185;
+    cursor: pointer;
+
+    &:hover {
+        text-decoration: underline;
+    }
 `;

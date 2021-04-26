@@ -2,6 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import { GlobalContext } from "../context/GlobalState";
 import { useContext } from "react";
+import CurrencyFormat from "react-currency-format";
 
 function Product({ _id: id, image, name, price, rating }) {
     const { addToCart } = useContext(GlobalContext);
@@ -11,7 +12,15 @@ function Product({ _id: id, image, name, price, rating }) {
     return (
         <Container>
             <Title>{name}</Title>
-            <Price>${price}</Price>
+            <Price>
+                <CurrencyFormat
+                    value={price}
+                    displayType="text"
+                    thousandSeparator={true}
+                    decimalScale={2}
+                    prefix={"$"}
+                />
+            </Price>
             <RatingContainer>
                 {rating > 0 &&
                     new Array(parseInt(rating)).fill("⭐").map((star) => <span>{star}</span>)}
