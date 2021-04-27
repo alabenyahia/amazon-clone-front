@@ -66,7 +66,15 @@ function RenderAll() {
         console.log("effect");
         setProductsUI(renderProducts(products, q, true));
     }, [products]);
-    return <Products>{productsUI}</Products>;
+    return (
+        <Products>
+            {productsUI.length > 0 ? (
+                productsUI
+            ) : (
+                <EmptyProducts>No products available...</EmptyProducts>
+            )}
+        </Products>
+    );
 }
 
 function RenderSearch() {
@@ -77,7 +85,7 @@ function RenderSearch() {
     useEffect(() => {
         console.log("effect");
         setProductsUI(renderProducts(products, q, false));
-    }, [products]);
+    }, [products, q]);
     return (
         <Products>
             {productsUI.length > 0 ? (
