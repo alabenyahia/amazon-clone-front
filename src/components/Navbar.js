@@ -75,7 +75,7 @@ export default Navbar;
 const Container = styled.nav`
     background-color: #131921;
     color: white;
-    height: 60px;
+    min-height: 60px;
     position: sticky;
     top: 0;
     left: 0;
@@ -84,6 +84,11 @@ const Container = styled.nav`
     z-index: 100;
     font-size: 14px;
     align-items: center;
+    @media screen and (max-width: 640px) {
+        flex-wrap: wrap;
+        padding: 8px 0 16px 0;
+        justify-content: space-between;
+    }
 `;
 
 const LogoContainer = styled.div`
@@ -97,6 +102,11 @@ const LogoContainer = styled.div`
     &:hover {
         border-color: white;
         border-radius: 2px;
+    }
+
+    @media screen and (max-width: 700px) {
+        height: 38px;
+        margin: 0 6px 0 12px;
     }
 `;
 
@@ -114,6 +124,20 @@ const SearchBarForm = styled.form`
     margin: 0 10px;
     &:focus-within {
         box-shadow: 0 0 0 2px #f90, 0 0 0 3px rgba(255, 153, 0, 0.5);
+    }
+
+    @media screen and (max-width: 700px) {
+        margin: 0 6px;
+    }
+
+    @media screen and (max-width: 640px) {
+        margin: 10px 20px 0 20px;
+        min-width: 300px;
+        order: 10;
+    }
+
+    @media screen and (max-width: 440px) {
+        min-width: 200px;
     }
 `;
 const SearchBarInput = styled.input`
@@ -151,9 +175,14 @@ const SignInMain = styled.div`
     cursor: pointer;
     padding: 8px;
     border: 1px solid transparent;
+
     &:hover {
         border-color: white;
         border-radius: 2px;
+    }
+
+    @media screen and (max-width: 700px) {
+        margin: 0 6px;
     }
 `;
 
@@ -174,6 +203,10 @@ const CartContainer = styled.div`
     &:hover {
         border-color: white;
         border-radius: 2px;
+    }
+
+    @media screen and (max-width: 700px) {
+        margin: 0 12px 0 6px;
     }
 `;
 const CartIconContainer = styled.div``;

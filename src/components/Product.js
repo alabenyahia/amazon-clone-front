@@ -45,6 +45,7 @@ const Title = styled.h3`
     font-size: 16px;
     line-height: 24px;
     font-weight: 400;
+    word-break: break-word;
 `;
 const Price = styled.span`
     display: block;

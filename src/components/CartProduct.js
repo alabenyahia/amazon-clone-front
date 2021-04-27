@@ -43,6 +43,21 @@ const ProductImg = styled.img`
     height: 150px;
     object-fit: contain;
     align-self: center;
+
+    @media screen and (max-width: 720px) {
+        width: 130px;
+        height: 130px;
+    }
+
+    @media screen and (max-width: 520px) {
+        width: 120px;
+        height: 120px;
+    }
+
+    @media screen and (max-width: 400px) {
+        width: 100px;
+        height: 100px;
+    }
 `;
 
 const ProductDetailsContainer = styled.div`
@@ -53,6 +68,7 @@ const Title = styled.h3`
     font-size: 18px;
     line-height: 24px;
     font-weight: 400;
+    word-break: break-word;
 `;
 const Price = styled.span`
     display: block;

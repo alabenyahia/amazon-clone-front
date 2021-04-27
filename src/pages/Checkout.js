@@ -79,6 +79,10 @@ const MainContainer = styled.div`
     box-sizing: border-box;
     flex: 1;
     align-items: flex-start;
+
+    @media screen and (max-width: 900px) {
+        flex-direction: column-reverse;
+    }
 `;
 
 const CartContainer = styled.div`
@@ -86,6 +90,11 @@ const CartContainer = styled.div`
     flex: 1;
     color: #0f1111;
     padding: 30px 15px;
+    @media screen and (max-width: 900px) {
+        flex: auto;
+        width: 100%;
+        margin-top: 20px;
+    }
 `;
 
 const CartH3 = styled.h3`
@@ -106,6 +115,11 @@ const TotalPriceContainer = styled.div`
     background-color: white;
     color: #0f1111;
     margin-left: 20px;
+
+    @media screen and (max-width: 900px) {
+        width: 100%;
+        margin: 0;
+    }
 `;
 
 const TotalPriceText = styled.p`
@@ -119,6 +133,7 @@ const TotalPriceTextSpan = styled.span`
 
 const CheckoutButton = styled.button`
     width: 100%;
+    max-width: 350px;
     background: #f0c14b;
     background: linear-gradient(to bottom, #f7dfa5, #f0c14b);
     border-color: #a88734 #9c7e31 #846a29;
