@@ -151,6 +151,24 @@ export const GlobalProvider = ({ children }) => {
         } catch (err) {}
     }
 
+    async function clearCart() {
+        try {
+            const headers = {
+                "Content-Type": "application/json",
+            };
+            const token = localStorage.getItem("AMAZON_CLONE-token");
+            if (token) headers["auth-token"] = token;
+            const rawRes = await fetch(`${BASE_URL}/api/user/clearcart`, {
+                method: "POST",
+                headers,
+            });
+            const res = await rawRes.json();
+            if (rawRes.status === 200) {
+                dispatch({ type: "CLEAR_CART_SUCCESS", payload: res });
+            }
+        } catch (err) {}
+    }
+
     function resetError() {
         dispatch({ type: "RESET_ERROR" });
     }
@@ -167,6 +185,7 @@ export const GlobalProvider = ({ children }) => {
                 logout,
                 addToCart,
                 removeFromCart,
+                clearCart,
             }}
         >
             {children}

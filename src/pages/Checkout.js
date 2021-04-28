@@ -8,34 +8,42 @@ import { useContext } from "react";
 import CurrencyFormat from "react-currency-format";
 
 function Checkout(props) {
-    const { user } = useContext(GlobalContext);
+    const { user, clearCart } = useContext(GlobalContext);
     return (
         <Container>
             <Navbar />
-            <MainContainer>
+            <MainContainer isEmptyCart={user.cart.length === 0}>
                 <CartContainer>
-                    <CartH3>
-                        {user.cart.length > 0 ? "Shopping Cart" : "Your Amazon Cart is empty"}
-                    </CartH3>
+                    <TopCartContainer>
+                        <CartH3>
+                            {user.cart.length > 0 ? "Shopping Cart" : "Your Amazon Cart is empty"}
+                        </CartH3>
+                        {user.cart.length > 0 && (
+                            <EmptyCartBtn onClick={() => clearCart()}>Clear cart</EmptyCartBtn>
+                        )}
+                    </TopCartContainer>
+
                     {user.cart.length > 0 &&
                         user.cart.map((product) => <CartProduct {...product} />)}
 
                     <CartPriceTextContainer>
-                        <TotalPriceText>
-                            Subtotal ({user.cart.length} items):{" "}
-                            <TotalPriceTextSpan>
-                                <CurrencyFormat
-                                    value={user.cart.reduce(
-                                        (accumulator, currVal) => accumulator + currVal.price,
-                                        0
-                                    )}
-                                    displayType="text"
-                                    thousandSeparator={true}
-                                    decimalScale={2}
-                                    prefix={"$"}
-                                />
-                            </TotalPriceTextSpan>
-                        </TotalPriceText>
+                        {user.cart.length > 0 && (
+                            <TotalPriceText>
+                                Subtotal ({user.cart.length} items):{" "}
+                                <TotalPriceTextSpan>
+                                    <CurrencyFormat
+                                        value={user.cart.reduce(
+                                            (accumulator, currVal) => accumulator + currVal.price,
+                                            0
+                                        )}
+                                        displayType="text"
+                                        thousandSeparator={true}
+                                        decimalScale={2}
+                                        prefix={"$"}
+                                    />
+                                </TotalPriceTextSpan>
+                            </TotalPriceText>
+                        )}
                     </CartPriceTextContainer>
                 </CartContainer>
                 {user.cart.length > 0 && (
@@ -81,7 +89,7 @@ const MainContainer = styled.div`
     align-items: flex-start;
 
     @media screen and (max-width: 900px) {
-        flex-direction: column-reverse;
+        flex-direction: column;
     }
 `;
 
@@ -91,17 +99,33 @@ const CartContainer = styled.div`
     color: #0f1111;
     padding: 30px 15px;
     @media screen and (max-width: 900px) {
-        flex: auto;
+        flex: 0;
         width: 100%;
         margin-top: 20px;
+        order: 2;
     }
+`;
+
+const TopCartContainer = styled.div`
+    padding-bottom: 18px;
+    border-bottom: 1px solid #ddd;
 `;
 
 const CartH3 = styled.h3`
     font-size: 28px;
     font-weight: 400;
-    padding-bottom: 18px;
-    border-bottom: 1px solid #ddd;
+    margin-bottom: 8px;
+`;
+
+const EmptyCartBtn = styled.button`
+    background: none;
+    border: none;
+    outline: none;
+    color: #007185;
+    cursor: pointer;
+    &:hover {
+        text-decoration: underline;
+    }
 `;
 
 const CartPriceTextContainer = styled.div`
@@ -119,6 +143,7 @@ const TotalPriceContainer = styled.div`
     @media screen and (max-width: 900px) {
         width: 100%;
         margin: 0;
+        order: 1;
     }
 `;
 

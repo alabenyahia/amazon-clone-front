@@ -31,6 +31,7 @@ export const GlobalReducer = (state, action) => {
             };
         case "ADD_TO_CART_SUCCESS":
         case "REMOVE_FROM_CART_SUCCESS":
+        case "CLEAR_CART_SUCCESS":
             return {
                 ...state,
                 user: { ...state.user, cart: action.payload.newCart },
