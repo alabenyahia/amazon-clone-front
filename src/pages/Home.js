@@ -68,7 +68,7 @@ function RenderAll() {
     }, [products]);
     return (
         <Products>
-            {productsUI.length > 0 ? (
+            {productsUI?.length > 0 ? (
                 productsUI
             ) : (
                 <EmptyProducts>No products available...</EmptyProducts>
@@ -88,7 +88,7 @@ function RenderSearch() {
     }, [products, q]);
     return (
         <Products>
-            {productsUI.length > 0 ? (
+            {productsUI?.length > 0 ? (
                 productsUI
             ) : (
                 <EmptyProducts>No products available...</EmptyProducts>
