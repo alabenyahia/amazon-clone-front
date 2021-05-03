@@ -16,8 +16,12 @@ function Routes(props) {
                 <Login />
             </Route>
             <PrivateRoute path="/checkout" component={Checkout} />
-            <PrivateRoute path="/search/:q" component={Home} />
-            <PrivateRoute path="/" component={Home} />
+            <Route path="/search/:q">
+                <Home />
+            </Route>
+            <Route path="/">
+                <Home />
+            </Route>
         </Switch>
     );
 }

@@ -3,11 +3,14 @@ import styled from "styled-components";
 import { GlobalContext } from "../context/GlobalState";
 import { useContext } from "react";
 import CurrencyFormat from "react-currency-format";
+import { useHistory } from "react-router-dom";
 
 function Product({ _id: id, image, name, price, rating }) {
-    const { addToCart } = useContext(GlobalContext);
+    const { addToCart, isAuthenticated } = useContext(GlobalContext);
+    const history = useHistory();
     const handleAddToCart = () => {
-        addToCart(id);
+        if (isAuthenticated) addToCart(id);
+        else history.push("/login");
     };
     return (
         <Container>
