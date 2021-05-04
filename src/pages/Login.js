@@ -16,7 +16,6 @@ function Login(props) {
     const handleLogin = (e) => {
         e.preventDefault();
         resetError();
-        console.log(password);
         loginUser({ email, password });
     };
 

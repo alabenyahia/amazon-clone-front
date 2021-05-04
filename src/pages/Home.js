@@ -63,7 +63,6 @@ function RenderAll() {
     const [productsUI, setProductsUI] = useState([]);
 
     useEffect(() => {
-        console.log("effect");
         setProductsUI(renderProducts(products, q, true));
     }, [products]);
     return (
@@ -83,7 +82,6 @@ function RenderSearch() {
     const [productsUI, setProductsUI] = useState([]);
 
     useEffect(() => {
-        console.log("effect");
         setProductsUI(renderProducts(products, q, false));
     }, [products, q]);
     return (
