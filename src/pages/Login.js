@@ -25,7 +25,7 @@ function Login(props) {
     else
         return (
             <Container>
-                <LogoContainer>
+                <LogoContainer onClick={() => history.push("/")}>
                     <LogoImg src="https://pngimg.com/uploads/amazon/amazon_PNG6.png" />
                 </LogoContainer>
                 <MainContentContainer>
@@ -94,6 +94,7 @@ const Container = styled.div`
 
 const LogoContainer = styled.div`
     margin: 16px 0;
+    cursor: pointer;
 `;
 
 const LogoImg = styled.img`
